@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<h2>Create a New Post</h2>
+<form action="/add" method="POST" class="post-form">
+  <input type="text" name="author" placeholder="Your Name" required>
+  <input type="text" name="title" placeholder="Post Title" required>
+  <textarea name="content" placeholder="Write your blog..." required></textarea>
+  <button type="submit">Add Post</button>
+</form>
+
+<h2>All Posts</h2>
+<div class="posts">
+  <% if (posts.length === 0) { %>
+    <p>No posts yet. Start writing!</p>
+  <% } else { %>
+    <% posts.forEach(post => { %>
+      <div class="post">
+        <h3><%= post.title %></h3>
+        <p><%= post.content %></p>
+        <small>By <%= post.author %> on <%= post.createdAt %></small>
+        <div class="actions">
+          <a href="/edit/<%= post.id %>">Edit</a>
+          <form action="/delete/<%= post.id %>" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
